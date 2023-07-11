@@ -1,4 +1,50 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+// 1. Есть словарь с видами чая и их стоимостью. Есть очередь людей, которые хотят заказать чай
+// (можно представить её в виде массива видов чая, которые хотят заказать).
+// Необходимо последовательно выводить в консоль сколько заплатит покупатель
+// необходимо вывести его номер по порядку, чай, который он заказал, и стоимость).
 
-print("Hello, world!")
+enum Tea: String {
+    case green = "зелёный"
+    case black = "чёрный"
+    case fruit = "фруктовый"
+}
+
+let teaCost: [Tea: Double] = [.green: 2.0, .black: 1.0, .fruit: 3.0]
+let customersLine: [Tea] = [.black, .black, .fruit, .green, .fruit, .black, .green]
+
+func task1() {
+    for (customerNum, teaKind) in customersLine.enumerated() {
+        print("покупатель № \(customerNum + 1) хочет купить \(teaKind.rawValue) чай за \(teaCost[teaKind]!) рублей")
+    }
+}
+
+// 2. Есть массив [-4, 5, 10, nil, 4, nil, 25, 0, nil, 16, 75, -20, -7, 15, 0, nil].
+// Необходимо создать новый массив, который будет состоять из элементов старого, но не должно быть nil,
+// не должно быть 0 и 4, а также массив должен быть отсортирован по возрастанию.
+
+func task2() {
+    let srcArray: [Int?] = [-4, 5, 10, nil, 4, nil, 25, 0, nil, 16, 75, -20, -7, 15, 0, nil]
+    let dstArray: [Int] = srcArray.compactMap { $0 }.filter { $0 != 0 && $0 != 4 }.sorted(by: <)
+
+    print(dstArray)
+}
+
+// 3. Написать функцию, которая на вход принимает целое число, а возвращает массив,
+// который сформирован по следующим правилам:
+// количество элементов соответствует переданному числу, массив начинается с 1,
+// каждый последующий элемент больше предыдущего в 2 раза.
+
+func task3(num: Int) -> [Int] {
+    var res = [1]
+
+    if num > 1 {
+        for i in 0..<num {
+            res.append(res[i] * 2)
+        }
+    }
+    return res
+}
+
+task1()
+task2()
+print(task3(num: 16))
